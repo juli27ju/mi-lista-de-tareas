@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas por Materia</title>
+</head>
+<body>
+    <h1>Lista de Tareas por Materia</h1>
+    <p>Selecciona la materia y escribe una tarea o material:</p>
+    
+    <!-- Lista desplegable de materias -->
+    <label for="materiaSelect">Materia:</label>
+    <select id="materiaSelect">
+        <option value="Matemáticas">Matemáticas</option>
+        <option value="Ciencias">Ciencias</option>
+        <option value="Historia">Historia</option>
+        <option value="Español">Español</option>
+        <option value="Arte">Arte</option>
+    </select>
+    
+    <!-- Campo de entrada para la tarea -->
+    <input type="text" id="tareaInput" placeholder="Escribe aquí..." />
+    <button id="btn-agregar">Añadir</button>
+    
+    <!-- Lista donde se mostrarán las tareas -->
+    <ul id="lista-tareas"></ul>
+
+    <script>
+        // Referencias a los elementos de la página
+        const materiaSelect = document.getElementById('materiaSelect');
+        const tareaInput = document.getElementById('tareaInput');
+        const btnAgregar = document.getElementById('btn-agregar');
+        const listaTareas = document.getElementById('lista-tareas');
+
+        // Función para agregar una tarea
+        btnAgregar.addEventListener('click', () => {
+            const tarea = tareaInput.value.trim(); // Eliminamos espacios en blanco
+            const materia = materiaSelect.value; // Obtenemos la materia seleccionada
+            
+            if (tarea) {
+                const li = document.createElement('li'); // Creamos un elemento <li>
+                li.innerHTML = `<strong>${materia}:</strong> ${tarea} 
+                <button onclick="eliminarTarea(this)">Eliminar</button>`;
+                listaTareas.appendChild(li); // Agregamos el <li> a la lista
+                tareaInput.value = ''; // Limpiamos el campo de texto
+            } else {
+                alert('Por favor, escribe algo antes de añadir.'); // Mostramos una alerta si el campo está vacío
+            }
+        });
+
+        // Función para eliminar una tarea
+        function eliminarTarea(boton) {
+            const li = boton.parentElement; // Obtenemos el <li> padre del botón
+            listaTareas.removeChild(li); // Eliminamos el <li> de la lista
+        }
+    </script>
+</body>
+</html>
